@@ -1,43 +1,31 @@
-/**
- * @file Header Component
- * @description Reusable header/navigation component for the website.
- */
+import { html } from '../utils'; // Assuming html utility is in src/utils.ts
 
-/**
- * Defines the structure for a navigation link.
- */
-interface NavLink {
-  label: string;
-  href: string;
+interface HeaderProps {
+  siteName: string;
+  navLinks: { href: string; text: string }[];
 }
 
-/**
- * Render the header with navigation links.
- *
- * @param {NavLink[]} links - An array of navigation links to display in the header.
- * @returns {string} - HTML string representing the header component.
- */
-export function renderHeader(links: NavLink[]): string {
-  return `
-    <header class="bg-white shadow sticky top-0 z-10">
-      <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" class="text-2xl font-bold text-gray-800 hover:text-gray-600">
-          My Website
-        </a>
+export function createHeader(props: HeaderProps): HTMLElement {
+  const { siteName, navLinks } = props;
+
+  const navItemsHtml = navLinks.map(link =>
+    html`<li class="ml-6">
+      <a href="${link.href}" class="text-gray-300 hover:text-white transition duration-300 ease-in-out">${link.text}</a>
+    </li>`
+  ).join('');
+
+  const headerElement = html`
+    <header class="bg-gray-800 text-white p-4 shadow-md sticky top-0 z-50">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="text-2xl font-bold text-white">${siteName}</div>
         <nav>
-          <ul class="flex space-x-6">
-            ${links.map(
-              (link) => `
-                <li>
-                  <a href="${link.href}" class="text-gray-700 hover:text-blue-500 transition-colors duration-200">
-                    ${link.label}
-                  </a>
-                </li>
-              `
-            ).join('')}
+          <ul class="flex">
+            ${navItemsHtml}
           </ul>
         </nav>
       </div>
     </header>
   `;
+
+  return headerElement;
 }

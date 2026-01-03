@@ -1,39 +1,42 @@
-/**
- * Footer Component
- *
- * This component renders the footer section of the website.
- * It includes copyright information and links to social media or other relevant pages.
- */
+import { getCurrentYear } from '../utils';
 
-/**
- * Renders the footer HTML string.
- *
- * @returns {string} The HTML string representing the footer.
- */
-export function renderFooter(): string {
-  return `
-    <footer class="bg-gray-100 dark:bg-gray-900 py-4 mt-8 border-t border-gray-200 dark:border-gray-700">
-      <div class="container mx-auto text-center text-gray-600 dark:text-gray-300">
-        <p>&copy; ${new Date().getFullYear()} My Company. All rights reserved.</p>
-        <p class="mt-2">
-          <a href="#" class="hover:text-blue-500 dark:hover:text-blue-400 mx-2">Terms of Service</a>
-          <a href="#" class="hover:text-blue-500 dark:hover:text-blue-400 mx-2">Privacy Policy</a>
-        </p>
-      </div>
-    </footer>
-  `;
+interface FooterProps {
+  companyName: string;
+  links?: { label: string; url: string }[];
 }
 
-/**
- * Attaches the footer to the DOM.
- * @param {HTMLElement} target - The element to attach the footer to.
- */
-export function attachFooter(target: HTMLElement): void {
-  target.innerHTML = renderFooter();
-}
+export function createFooter(props: FooterProps): HTMLElement {
+  const footer = document.createElement('footer');
+  footer.className = 'bg-gray-800 text-white py-8 px-4 sm:px-6 lg:px-8 dark:bg-gray-900';
 
-// Example usage (if needed for direct DOM manipulation - remove if only using renderFooter)
-// const footerContainer = document.getElementById('footer-container');
-// if (footerContainer) {
-//   attachFooter(footerContainer);
-// }
+  const container = document.createElement('div');
+  container.className = 'max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center';
+
+  const copyright = document.createElement('div');
+  copyright.className = 'text-sm mb-4 md:mb-0';
+  copyright.innerHTML = `&copy; ${getCurrentYear()} ${props.companyName}. All rights reserved.`;
+
+  container.appendChild(copyright);
+
+  if (props.links && props.links.length > 0) {
+    const nav = document.createElement('nav');
+    const ul = document.createElement('ul');
+    ul.className = 'flex flex-wrap justify-center md:justify-end space-x-4';
+
+    props.links.forEach(link => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = link.url;
+      a.textContent = link.label;
+      a.className = 'hover:text-gray-300 transition-colors duration-200';
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    nav.appendChild(ul);
+    container.appendChild(nav);
+  }
+
+  footer.appendChild(container);
+  return footer;
+}
