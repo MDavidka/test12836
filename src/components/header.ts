@@ -1,31 +1,41 @@
-import { html } from '../utils'; // Assuming html utility is in src/utils.ts
+/**
+ * Creates and returns a header element with navigation links.
+ *
+ * @param {string} siteTitle - The title of the website to display in the header.
+ * @param {Array<{text: string, href: string}>} navItems - An array of navigation items, each with text and a href.
+ * @returns {HTMLElement} The created header element.
+ */
+export function createHeader(siteTitle: string, navItems: Array<{text: string, href: string}>): HTMLElement {
+    const header = document.createElement('header');
+    header.className = 'bg-gray-800 text-white p-4 shadow-md dark:bg-gray-900';
 
-interface HeaderProps {
-  siteName: string;
-  navLinks: { href: string; text: string }[];
-}
+    const container = document.createElement('div');
+    container.className = 'container mx-auto flex justify-between items-center';
 
-export function createHeader(props: HeaderProps): HTMLElement {
-  const { siteName, navLinks } = props;
+    // Site Title
+    const titleElement = document.createElement('h1');
+    titleElement.className = 'text-2xl font-bold';
+    titleElement.textContent = siteTitle;
+    container.appendChild(titleElement);
 
-  const navItemsHtml = navLinks.map(link =>
-    html`<li class="ml-6">
-      <a href="${link.href}" class="text-gray-300 hover:text-white transition duration-300 ease-in-out">${link.text}</a>
-    </li>`
-  ).join('');
+    // Navigation
+    const nav = document.createElement('nav');
+    const ul = document.createElement('ul');
+    ul.className = 'flex space-x-4';
 
-  const headerElement = html`
-    <header class="bg-gray-800 text-white p-4 shadow-md sticky top-0 z-50">
-      <div class="container mx-auto flex justify-between items-center">
-        <div class="text-2xl font-bold text-white">${siteName}</div>
-        <nav>
-          <ul class="flex">
-            ${navItemsHtml}
-          </ul>
-        </nav>
-      </div>
-    </header>
-  `;
+    navItems.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.text;
+        a.className = 'hover:text-gray-300 transition-colors duration-200';
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
 
-  return headerElement;
+    nav.appendChild(ul);
+    container.appendChild(nav);
+    header.appendChild(container);
+
+    return header;
 }

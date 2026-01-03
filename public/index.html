@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Vite App</title>
+    <title>Modern Site</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased">
-    <div id="app" class="min-h-screen flex flex-col">
-        <!-- App content will be rendered here by main.ts -->
-        <header id="main-header"></header>
-        <main class="flex-grow container mx-auto px-4 py-8">
-            <!-- Main content will be loaded here -->
-            <h1 class="text-4xl font-bold mb-6 text-center">Welcome to Your Modern Vite App!</h1>
-            <p class="text-lg text-center">This is a clean, minimalist starter template powered by Vite, TypeScript, and Tailwind CSS.</p>
-        </main>
-        <footer id="main-footer"></footer>
-    </div>
+<body class="bg-gray-900 text-gray-100 font-sans antialiased">
+    <header id="app-header"></header>
+    <main id="app-main" class="container mx-auto px-4 py-8"></main>
+    <footer id="app-footer"></footer>
+    <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
