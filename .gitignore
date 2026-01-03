@@ -1,0 +1,58 @@
+# Node.js modules
+/node_modules
+/dist
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Cloudflare Pages
+.wrangler
+.output
+
+# Logs
+*.log
+logs
+
+# Temporary files
+tmp
+temp
+*.tmp
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# pnpm
+.pnpm*
+
+# Optional Packages
+# packages that were optionally installed and might be redundant
+# comment out if your application depends on optional packages
+# node_modules/*/*/node_modules
+
+# Build results
+/dist
+/build
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage
+/coverage
+
+# Mac
+__MACOSX/
